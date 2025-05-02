@@ -73,7 +73,7 @@ GenBanky <- function(path) {
 
     unique_accessions <- make.unique(accessions)
     changes <- unique_accessions != accessions
-    changed_acc <- setNames(unique_accessions[changes], accessions[changes])
+    changed_acc <- stats::setNames(unique_accessions[changes], accessions[changes])
 
 
     change_msgs <- sapply(seq_along(changed_acc), function(i) {
@@ -85,7 +85,7 @@ GenBanky <- function(path) {
   }
 
   names(sequences) <- accessions
-  gb_collection <- new("GenBankyObj", sequences = sequences)
+  gb_collection <- methods::new("GenBankyObj", sequences = sequences)
 
 
   attr(gb_collection, "changed_accessions") <- changed_acc

@@ -1,4 +1,6 @@
-#' @noRd
+#' @title Split GenBank records
+#' @description Internal function to split multi-record GenBank files
+#' @keywords internal
 split_records <- function(lines) {
   ends <- which(lines == "//")
   starts <- c(1, ends[-length(ends)] + 1)
@@ -8,9 +10,11 @@ split_records <- function(lines) {
 }
 
 
-#' @noRd
+#' @title Process GenBank record
+#' @description Internal parser for individual GenBank records
+#' @keywords internal
 process_record <- function(record_lines) {
-  new("GBSequence",
+  methods::new("GBSequence",
       LOCUS = parse_section(record_lines, "LOCUS"),
       DEFINITION = parse_section(record_lines, "DEFINITION"),
       ACCESSION = parse_section(record_lines, "ACCESSION"),
@@ -27,7 +31,9 @@ process_record <- function(record_lines) {
 }
 
 
-#' @noRd
+#' @title Parse GenBank section
+#' @description Internal section parser for GenBank files
+#' @keywords internal
 parse_section <- function(lines, section) {
   section_lines <- grep(paste0("^\\s{0,2}", section, "\\s"), lines, value = TRUE)
   if(length(section_lines) > 0) {
@@ -36,7 +42,9 @@ parse_section <- function(lines, section) {
 }
 
 
-#' @noRd
+#' @title Parse GenBank source
+#' @description Internal source parser for GenBank files
+#' @keywords internal
 parse_source <- function(lines) {
   source_line <- grep("^SOURCE", lines, value = TRUE)
   if(length(source_line) > 0) {
@@ -45,7 +53,9 @@ parse_source <- function(lines) {
 }
 
 
-#' @noRd
+#' @title Parse GenBank organism
+#' @description Internal organism parser for GenBank files
+#' @keywords internal
 parse_organism <- function(lines) {
   org_line <- grep("^\\s+ORGANISM", lines, value = TRUE)
   if(length(org_line) > 0) {
@@ -56,7 +66,9 @@ parse_organism <- function(lines) {
 }
 
 
-#' @noRd
+#' @title Parse GenBank reference
+#' @description Internal reference parser for GenBank files
+#' @keywords internal
 parse_references <- function(lines) {
   ref_starts <- grep("^REFERENCE", lines)
   lapply(ref_starts, function(start) {
@@ -64,7 +76,7 @@ parse_references <- function(lines) {
     if(is.na(end)) end <- length(lines)
     ref_lines <- lines[start:end]
 
-    new("GBReference",
+    methods::new("GBReference",
         number = sub("^REFERENCE\\s+(\\d+).*", "\\1", ref_lines[1]),
         authors = paste(grep("^\\s+AUTHORS", ref_lines, value = TRUE) |>
                           sub("^\\s+AUTHORS\\s+", "", x = _), collapse = " "),
@@ -78,7 +90,11 @@ parse_references <- function(lines) {
 }
 
 
-#' @noRd
+
+
+#' @title Parse GenBank features
+#' @description Internal feature parser for GenBank files
+#' @keywords internal
 parse_features <- function(lines) {
   feat_lines <- get_section_lines(lines, "FEATURES")
   features <- list()
@@ -88,7 +104,7 @@ parse_features <- function(lines) {
     if(grepl("^\\s{5}\\w+", line)) {
       if(!is.null(current_feat)) {
         features[[current_feat$type]] <- c(features[[current_feat$type]],
-                                           new("GBFeature",
+                                           methods::new("GBFeature",
                                                type = current_feat$type,
                                                location = current_feat$location,
                                                qualifiers = current_feat$qualifiers))
@@ -107,7 +123,7 @@ parse_features <- function(lines) {
   }
   if(!is.null(current_feat)) {
     features[[current_feat$type]] <- c(features[[current_feat$type]],
-                                       new("GBFeature",
+                                       methods::new("GBFeature",
                                            type = current_feat$type,
                                            location = current_feat$location,
                                            qualifiers = current_feat$qualifiers))
@@ -116,7 +132,9 @@ parse_features <- function(lines) {
 }
 
 
-#' @noRd
+#' @title parse_origin
+#' @description Internal helper for origin parsing
+#' @keywords internal
 parse_origin <- function(lines) {
   origin_lines <- get_section_lines(lines, "ORIGIN")[-1]
   paste0(gsub("[^a-zA-Z]", "", unlist(strsplit(origin_lines, "\\s+"))),
@@ -124,14 +142,18 @@ parse_origin <- function(lines) {
 }
 
 
-#' @noRd
+#' @title parse_comment
+#' @description Internal helper for comment parsing
+#' @keywords internal
 parse_comment <- function(lines) {
   comment_lines <- get_section_lines(lines, "COMMENT")
   paste(sub("^COMMENT\\s+", "", comment_lines), collapse = "\n")
 }
 
 
-#' @noRd
+#' @title Get section lines
+#' @description Internal helper for section extraction
+#' @keywords internal
 get_section_lines <- function(lines, section) {
   start <- grep(paste0("^\\s{0,2}", section, "\\b"), lines)
   if(length(start) == 0) return(character(0))

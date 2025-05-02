@@ -1,16 +1,24 @@
 Package: GenBanky
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Import of genbank files with with single or multiple records
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Authors@R: 
+    c(
+    person("Sergej", "Ruff", 
+           email = "serijnh@gmail.com", 
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0000-8264-6347"))
+           )
+Description: Provides robust tools for reading GenBank format files (.gb/.gbk). Handles both 
+    single and multi-record files, preserving biological annotations in structured 
+    S4 objects. Enables efficient access to genomic features, sequence data, and 
+    metadata through standardized object-oriented interfaces.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/SergejRuff/GenBanky
+BugReports: https://github.com/SergejRuff/GenBanky/issues
+RoxygenNote: 7.3.2
+Imports: 
+    methods,
+    stats

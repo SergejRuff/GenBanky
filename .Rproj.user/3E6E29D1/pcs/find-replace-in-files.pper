@@ -1,15 +1,15 @@
 {
     "dialog-state": {
-        "query": "GBCollection",
+        "query": "setNames",
         "path": "",
         "regex": false,
         "caseSensitive": false,
         "wholeWord": false,
         "filePatterns": [],
-        "useGitGrep": false,
+        "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 2,
+        "resultsCount": 1,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true
