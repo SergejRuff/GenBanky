@@ -3,7 +3,7 @@
     "path": "~/Dokumente/programming/GenBanky/R/main_function.R",
     "project_path": "R/main_function.R",
     "type": "r_source",
-    "hash": "3074489839",
+    "hash": "1270442643",
     "contents": "",
     "dirty": false,
     "created": 1746201017968.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "75,26",
-        "scrollLine": "68"
+        "cursorPosition": "39,45",
+        "scrollLine": "30"
     },
     "folds": "",
-    "lastKnownWriteTime": 1746203714,
+    "lastKnownWriteTime": 1746204272,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1746203714016,
+    "last_content_update": 1746204272593,
     "read_only": false,
     "read_only_alternatives": []
 }

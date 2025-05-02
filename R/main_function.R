@@ -37,7 +37,7 @@
 #' \dontrun{
 #'
 #' example_gbk_path <- system.file("extdata", "flavivirus.gb", package = "GenBanky")
-#' imported_data <- GenBanky(example_gbk)
+#' imported_data <- GenBanky(example_gbk_path)
 #' }
 #'
 #'
